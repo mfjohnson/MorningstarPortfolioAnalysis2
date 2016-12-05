@@ -1,5 +1,5 @@
 import pandas
-import xlsxwriter
+#import xlsxwriter
 
 df = pandas.read_excel('CurrentHoldings.xls')
 #print the column names
@@ -14,9 +14,10 @@ df['ShareShrink'] = df['SurplusEarnings']/df['CurrentPrice']
 df['ddrm'] = df['DivYield']+df['CoreGrowth']+df['ShareShrink']
 
 
-writer = pandas.ExcelWriter('CurrentHoldingsProcessed.xlsx',engine='xlsxwriter')
+#writer = pandas.ExcelWriter('CurrentHoldingsProcessed.xlsx',engine='xlsxwriter')
+writer = pandas.ExcelWriter('CurrentHoldingsProcessed.xlsx')
 df.to_excel(writer, "Main")
-workbook  = writer.book
-worksheet = writer.sheets['Main']
-worksheet.conditional_format('AR0:AR255', {'type': '3_color_scale'})
+#workbook  = writer.book
+#worksheet = writer.sheets['Main']
+#worksheet.conditional_format('AR0:AR255', {'type': '3_color_scale'})
 writer.save()
