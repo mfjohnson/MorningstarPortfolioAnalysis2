@@ -1,7 +1,9 @@
 import pandas
-#import xlsxwriter
+import sys
 
-df = pandas.read_excel('CurrentHoldings.xls')
+#import xlsxwriter
+fName = sys.argv[1]
+df = pandas.read_excel(fName)
 #print the column names
 df.rename(columns=lambda x: x.replace("\r","").replace("\n","").replace(" ","").replace("%","").replace("$","").replace("/","").replace("-","").replace("+",""), inplace=True)
 df['EPS1YrGrowth'] = (df["MeanEPSEstNextYear"] - df["MeanEPSEstThisYr"])/df["MeanEPSEstThisYr"]
@@ -15,7 +17,8 @@ df['ddrm'] = df['DivYield']+df['CoreGrowth']+df['ShareShrink']
 
 
 #writer = pandas.ExcelWriter('CurrentHoldingsProcessed.xlsx',engine='xlsxwriter')
-writer = pandas.ExcelWriter('CurrentHoldingsProcessed.xlsx')
+
+writer = pandas.ExcelWriter("Processed-"+fName)
 df.to_excel(writer, "Main")
 #workbook  = writer.book
 #worksheet = writer.sheets['Main']
